@@ -14,7 +14,7 @@ Existing meta-learning systems use fixed update rules and lack bounded recursive
 
 Our framework resolves these instabilities through a hierarchically decoupled architecture encompassing three learning layers, governed by a strict Lyapunov stability bound.
 
-![Figure 1: Architecture diagram](docs/figure1_architecture.png)
+![Figure 1: Architecture diagram](figure1_architecture.png)
 *Figure 1: System architecture displaying the F0/F1/F2 recursion flow, episodic memory retrieval paths, and the automated Stability Guardian enforcement module.*
 
 * **F0 (Object Level):** Task-specific backbones (Transformer, MLP, ResNet).
