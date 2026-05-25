@@ -1,0 +1,15 @@
+# Omniglot Few-Shot Benchmark Configuration
+dataset:
+  name: "omniglot"
+  root: "./data"
+  background: true
+
+evaluation:
+  n_way: 5
+  k_shot: 1
+  q_query: 15
+  n_episodes: 1000
+
+model:
+  input_channels: 1
+  hidden_dim: 64

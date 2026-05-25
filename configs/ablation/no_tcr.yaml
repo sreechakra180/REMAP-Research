@@ -1,0 +1,6 @@
+# Ablation: Disable Temporal Consistency Regularization
+base_config: "configs/model/default.yaml"
+experiment_name: "ablation_no_tcr"
+
+model_overrides:
+  lambda_tc: 0.0

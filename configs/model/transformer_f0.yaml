@@ -1,0 +1,5 @@
+name: transformer_f0
+d_model: 256
+n_heads: 4
+num_layers: 4
+dropout: 0.1

@@ -1,0 +1,6 @@
+# Ablation: Disable Abstract Algorithmic Forcing
+base_config: "configs/model/default.yaml"
+experiment_name: "ablation_no_aaf"
+
+model_overrides:
+  lambda_abs: 0.0

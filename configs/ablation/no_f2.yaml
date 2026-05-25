@@ -1,0 +1,7 @@
+# Ablation: Disable Epistemic Recursion (F2)
+base_config: "configs/model/default.yaml"
+experiment_name: "ablation_no_f2"
+
+model_overrides:
+  enable_epistemic_recursion: false
+  recursion_depth: 1

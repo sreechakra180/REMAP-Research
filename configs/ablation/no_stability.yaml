@@ -1,0 +1,7 @@
+# Ablation: Disable Guardian/Stability Monitoring
+base_config: "configs/model/default.yaml"
+experiment_name: "ablation_no_stability"
+
+model_overrides:
+  enable_guardian: false
+  stability_margin: 0.0

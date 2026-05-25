@@ -1,0 +1,141 @@
+Metadata-Version: 2.4
+Name: remap-net
+Version: 0.1.0
+Summary: REMAP-Net: Recursive Episodic Memory-Augmented Prediction Network
+Home-page: https://github.com/remap-net/remap-net
+Author: REMAP-Net Authors
+License: MIT
+Keywords: deep-learning,few-shot-learning,continual-learning,meta-learning
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Dynamic: home-page
+Dynamic: requires-python
+
+# REMAP-Net: Recursive Epistemic Meta-Abstraction with Plasticity
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
+
+## Abstract
+**REMAP-Net** represents a novel paradigm in deep learning architectures, moving beyond static weights towards a dynamic, self-modifying system. By structuring learning as a three-tier recursive hierarchy ($F_0$, $F_1$, $F_2$), REMAP-Net actively models its own learning process, estimating both plasticity (how to change) and epistemic uncertainty (when and where to change). Coupled with a Stability Guardian (based on Lyapunov theory), an Abstractive-Associative Filter (AAF) for Information Bottleneck compression, and an Epistemic Memory module, it mitigates catastrophic forgetting while achieving state-of-the-art sample efficiency in non-stationary and few-shot environments.
+
+## Architecture Diagram
+```mermaid
+graph TD
+    X[Input Data] --> AAF[Abstractive-Associative Filter]
+    AAF --> F0[F0: Base Neural Network]
+    
+    F0 --> Output[Predictions]
+    Output --> Loss[Loss Calculation]
+    
+    Loss --> F1[F1: Meta-Plasticity]
+    F1 -.->|Modulates Gradients| F0
+    
+    F1 --> F2[F2: Epistemic Recursion]
+    F2 -.->|Updates F1 Params| F1
+    
+    AAF <--> Mem[Epistemic Memory]
+    
+    SG[Stability Guardian] -.->|Projects| F0
+    SG -.->|Projects| F1
+```
+
+## Installation
+
+### Prerequisites
+- Python 3.10+
+- PyTorch 2.0+ (CUDA recommended)
+
+### Setup
+```bash
+# Clone the repository
+git clone https://github.com/your-username/remap-net.git
+cd remap-net
+
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -e .
+pip install -r requirements.txt
+```
+
+## Quick Start
+
+### 1. Download Datasets
+```bash
+python scripts/download_data.py --dataset omniglot
+```
+
+### 2. Training
+To train the model on Omniglot (Few-shot setting):
+```bash
+python -m remap_net.main --config experiments/few_shot_omniglot.yaml --output_dir results/omniglot
+```
+
+### 3. Evaluation
+To evaluate a trained model:
+```bash
+python -m remap_net.evaluate --checkpoint results/omniglot/best_model.pth --config experiments/few_shot_omniglot.yaml
+```
+
+## Project Structure
+```text
+remap-net/
+├── remap_net/                  # Core library
+│   ├── core/                   # Main architectural components
+│   │   ├── abstraction.py      # Abstractive-Associative Filter
+│   │   ├── epistemic.py        # F2: Epistemic Recursion
+│   │   ├── memory.py           # Epistemic Memory
+│   │   ├── meta_plasticity.py  # F1: Meta-Plasticity Network
+│   │   ├── remapping.py        # Main ReMAPNet integration
+│   │   └── stability.py        # Stability Guardian
+│   ├── models/                 # Backbones (F0)
+│   ├── utils/                  # Helper utilities
+│   └── visualization/          # IEEE-grade plotting tools
+├── experiments/                # YAML configuration files
+├── scripts/                    # Scripts for data, ablation, plots
+├── tests/                      # Pytest suite
+└── README.md
+```
+
+## Configuration Guide
+The framework uses YAML for configuration. See `experiments/few_shot_omniglot.yaml` for a complete example. 
+- **backbone**: Defines the $F_0$ architecture.
+- **meta_plasticity**: $F_1$ settings including low-rank dimensions.
+- **epistemic**: $F_2$ settings (SVGD particles).
+- **stability**: Lyapunov guardian hyperparameters.
+
+## Benchmark Reproduction
+To run the full ablation suite:
+```bash
+python scripts/run_ablation.py --config experiments/ablation_full.yaml --seeds 42 43 44
+```
+
+To generate the LaTeX tables and IEEE-styled plots for the paper:
+```bash
+python scripts/generate_tables.py
+python scripts/generate_plots.py
+```
+
+## Citation
+If you use REMAP-Net in your research, please cite our paper:
+```bibtex
+@article{remapnet2026,
+  title={REMAP-Net: Recursive Epistemic Meta-Abstraction with Plasticity},
+  author={Anonymous Authors},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2026}
+}
+```
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.

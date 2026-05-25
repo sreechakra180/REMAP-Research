@@ -1,0 +1,51 @@
+# Full configuration for Ablation Sweeps
+experiment_name: "ablation_base"
+seed: 42
+
+dataset:
+  name: "omniglot"
+  n_way: 5
+  k_shot: 1
+  q_query: 15
+  batch_size: 32
+
+backbone:
+  type: "mlp"
+  input_dim: 784
+  hidden_dims: [256, 128]
+  output_dim: 64
+  dropout: 0.1
+
+meta_plasticity:
+  low_rank_dim: 8
+  base_lr: 0.01
+  meta_lr: 0.001
+
+epistemic:
+  num_particles: 5
+  temperature: 1.0
+  prior_variance: 1.0
+
+stability:
+  lambda_v: 0.1
+  gamma_target: 0.05
+  max_projection_iters: 50
+  tolerance: 1e-4
+
+abstraction:
+  latent_dim: 32
+  beta_ib: 0.1
+  mine_hidden_dim: 64
+
+memory:
+  episodic_capacity: 100
+  long_term_capacity: 50
+  consolidation_threshold: 5
+  latent_dim: 32
+
+training:
+  epochs: 50
+  phase_1_epochs: 10
+  phase_2_epochs: 20
+  optimizer: "adam"
+  lr: 0.001

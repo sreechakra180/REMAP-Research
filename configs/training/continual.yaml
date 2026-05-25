@@ -1,0 +1,23 @@
+epochs: 200
+pretrain_epochs: 20
+meta_warmup_epochs: 30
+batch_size: 32
+optimizer: AdamW
+lr: 0.001
+weight_decay: 0.05
+
+theta_optim:
+  optimizer: AdamW
+  lr: 0.001
+
+phi_optim:
+  optimizer: Adam
+  lr: 0.0001
+
+psi_optim:
+  optimizer: Adam
+  lr: 0.00001
+
+lambda_tc: 1.0
+lambda_stab: 0.5
+lambda_abs: 0.01
